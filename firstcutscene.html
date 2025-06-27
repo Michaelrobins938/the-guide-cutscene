@@ -1,0 +1,2876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>The First Room - Complete Experience</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Major+Mono+Display&family=Special+Elite&family=Orbitron:wght@400;700;900&display=swap');
+        
+        :root {
+            --terminal-green: #39FF14;
+            --matrix-green: #00FF41;
+            --warm-white: #F8F8F2;
+            --deep-black: #0D0D0D;
+            --glitch-red: #FF5555;
+            --electric-blue: #00D4FF;
+            --void-purple: #8A2BE2;
+            --cosmic-pink: #FF1493;
+            --nebula-blue: #4169E1;
+            --star-white: #FFFFFF;
+            --digital-cyan: #00FFFF;
+            --neon-orange: #FF6600;
+            --handwritten: 'Special Elite', cursive;
+            --terminal: 'JetBrains Mono', monospace;
+            --title: 'Orbitron', monospace;
+            --futuristic: 'Major Mono Display', monospace;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body, html {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            background-color: #000;
+            color: var(--warm-white);
+            font-family: var(--terminal);
+            font-size: 16px;
+            line-height: 1.6;
+            cursor: none;
+        }
+
+        /* Enhanced Galaxy Background - Always Visible */
+        .galaxy-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -20;
+            background: 
+                radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.6) 70%, #000 100%),
+                radial-gradient(ellipse 200% 100% at 50% 90%, transparent 0%, rgba(138, 43, 226, 0.4) 50%, rgba(75, 0, 130, 0.7) 100%),
+                linear-gradient(0deg, #000 0%, rgba(25, 25, 112, 0.9) 50%, rgba(72, 61, 139, 0.7) 100%);
+            opacity: 1;
+        }
+
+        .stars-layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #eee, transparent),
+                radial-gradient(2px 2px at 40px 70px, #fff, transparent),
+                radial-gradient(1px 1px at 90px 40px, #fff, transparent),
+                radial-gradient(1px 1px at 130px 80px, #fff, transparent),
+                radial-gradient(2px 2px at 160px 30px, #ddd, transparent),
+                radial-gradient(1px 1px at 200px 50px, var(--electric-blue), transparent),
+                radial-gradient(2px 2px at 250px 80px, var(--cosmic-pink), transparent),
+                radial-gradient(1px 1px at 300px 20px, var(--void-purple), transparent);
+            background-repeat: repeat;
+            background-size: 200px 100px;
+            animation: starTwinkle 20s ease-in-out infinite alternate;
+            opacity: 0.9;
+        }
+
+        .stars-layer:nth-child(2) {
+            background-image: 
+                radial-gradient(1px 1px at 10px 20px, #fff, transparent),
+                radial-gradient(1px 1px at 60px 60px, #ddd, transparent),
+                radial-gradient(2px 2px at 110px 10px, #fff, transparent),
+                radial-gradient(1px 1px at 140px 70px, #eee, transparent),
+                radial-gradient(1px 1px at 180px 40px, var(--terminal-green), transparent);
+            background-size: 150px 80px;
+            animation: starTwinkle 25s ease-in-out infinite alternate-reverse;
+        }
+
+        .stars-layer:nth-child(3) {
+            background-image: 
+                radial-gradient(1px 1px at 30px 10px, var(--electric-blue), transparent),
+                radial-gradient(2px 2px at 80px 50px, var(--cosmic-pink), transparent),
+                radial-gradient(1px 1px at 120px 20px, var(--void-purple), transparent),
+                radial-gradient(3px 3px at 170px 70px, var(--star-white), transparent);
+            background-size: 180px 120px;
+            animation: starTwinkle 30s ease-in-out infinite;
+        }
+
+        @keyframes starTwinkle {
+            0%, 100% { 
+                opacity: 0.8;
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 1;
+                transform: scale(1.05);
+            }
+        }
+
+        .nebula-clouds {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse 800px 600px at 10% 20%, rgba(138, 43, 226, 0.5), transparent),
+                radial-gradient(ellipse 600px 800px at 80% 70%, rgba(255, 20, 147, 0.4), transparent),
+                radial-gradient(ellipse 400px 400px at 50% 50%, rgba(0, 212, 255, 0.3), transparent),
+                radial-gradient(ellipse 300px 500px at 70% 20%, rgba(75, 0, 130, 0.4), transparent);
+            animation: nebulaDrift 40s ease-in-out infinite;
+            mix-blend-mode: screen;
+            opacity: 0.8;
+        }
+
+        @keyframes nebulaDrift {
+            0%, 100% { 
+                transform: rotate(0deg) scale(1);
+                opacity: 0.6;
+            }
+            25% { 
+                transform: rotate(90deg) scale(1.1);
+                opacity: 0.8;
+            }
+            50% { 
+                transform: rotate(180deg) scale(0.9);
+                opacity: 0.7;
+            }
+            75% { 
+                transform: rotate(270deg) scale(1.05);
+                opacity: 0.9;
+            }
+        }
+
+        .cosmic-dust {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(1px 1px at 50px 100px, rgba(255,255,255,0.6), transparent),
+                radial-gradient(1px 1px at 150px 200px, rgba(138, 43, 226, 0.4), transparent),
+                radial-gradient(1px 1px at 250px 50px, rgba(0, 212, 255, 0.5), transparent),
+                radial-gradient(2px 2px at 350px 150px, rgba(255, 20, 147, 0.3), transparent);
+            background-size: 300px 300px;
+            animation: dustFloat 60s linear infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes dustFloat {
+            from { transform: translateX(-100px) translateY(-100px); }
+            to { transform: translateX(100px) translateY(100px); }
+        }
+
+        /* Matrix Background - Fixed Canvas */
+        .matrix-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -10;
+            opacity: 0;
+            transition: opacity 2s ease;
+            background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.8));
+        }
+
+        .matrix-container.active {
+            opacity: 0.8;
+        }
+
+        .matrix-rain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* CSS Matrix Rain Fallback */
+        .css-matrix-rain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 400;
+            opacity: 0;
+            transition: opacity 2s ease;
+        }
+
+        .css-matrix-rain.active {
+            opacity: 0.6;
+        }
+
+        .matrix-column {
+            position: absolute;
+            top: -100%;
+            color: var(--matrix-green);
+            font-size: 14px;
+            line-height: 14px;
+            white-space: pre;
+            text-shadow: 0 0 8px currentColor;
+            opacity: 0.8;
+            animation: matrixFall linear infinite;
+            pointer-events: none;
+        }
+
+        .matrix-column.bright {
+            color: var(--warm-white);
+            text-shadow: 0 0 12px var(--matrix-green), 0 0 20px var(--matrix-green);
+            opacity: 1;
+        }
+
+        .matrix-column.fading {
+            color: rgba(0, 255, 65, 0.3);
+            text-shadow: 0 0 4px currentColor;
+        }
+
+        @keyframes matrixFall {
+            to {
+                transform: translateY(calc(100vh + 200px));
+            }
+        }
+
+        /* Digital Glitch Overlay */
+        .glitch-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 15;
+            pointer-events: none;
+            opacity: 0;
+            mix-blend-mode: screen;
+            transition: opacity 0.3s ease;
+        }
+
+        .glitch-overlay.active {
+            opacity: 1;
+        }
+
+        .digital-noise {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.1'/%3E%3C/svg%3E");
+            animation: noiseShift 0.1s infinite linear;
+        }
+
+        @keyframes noiseShift {
+            0% { transform: translate(0, 0); }
+            25% { transform: translate(-2px, 2px); }
+            50% { transform: translate(2px, -2px); }
+            75% { transform: translate(-1px, -1px); }
+            100% { transform: translate(1px, 1px); }
+        }
+
+        .scanlines {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(0, 255, 65, 0.1) 2px,
+                    rgba(0, 255, 65, 0.1) 4px
+                );
+            animation: scanlineMove 0.2s linear infinite;
+        }
+
+        @keyframes scanlineMove {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(4px); }
+        }
+
+        .color-separation {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                rgba(255, 0, 0, 0.1) 0%, 
+                rgba(0, 255, 0, 0.1) 33%, 
+                rgba(0, 0, 255, 0.1) 66%, 
+                rgba(255, 0, 0, 0.1) 100%);
+            animation: colorShift 0.3s ease-in-out infinite alternate;
+        }
+
+        @keyframes colorShift {
+            0% { transform: translateX(-2px); filter: hue-rotate(0deg); }
+            100% { transform: translateX(2px); filter: hue-rotate(10deg); }
+        }
+
+        /* Splash Screen */
+        .splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            cursor: pointer;
+            transition: opacity 1s ease;
+        }
+
+        .splash-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .splash-title {
+            font-family: var(--title);
+            font-size: clamp(2rem, 8vw, 4rem);
+            color: var(--terminal-green);
+            text-align: center;
+            margin-bottom: 2rem;
+            text-shadow: 
+                0 0 10px var(--terminal-green),
+                0 0 20px var(--terminal-green),
+                0 0 40px var(--terminal-green);
+            animation: titlePulse 3s ease-in-out infinite;
+            letter-spacing: 3px;
+        }
+
+        @keyframes titlePulse {
+            0%, 100% { 
+                text-shadow: 
+                    0 0 10px var(--terminal-green),
+                    0 0 20px var(--terminal-green),
+                    0 0 40px var(--terminal-green);
+            }
+            50% { 
+                text-shadow: 
+                    0 0 15px var(--terminal-green),
+                    0 0 30px var(--terminal-green),
+                    0 0 60px var(--terminal-green),
+                    0 0 80px var(--electric-blue);
+            }
+        }
+
+        .splash-subtitle {
+            font-family: var(--terminal);
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            color: var(--warm-white);
+            text-align: center;
+            margin-bottom: 3rem;
+            opacity: 0.8;
+            letter-spacing: 1px;
+        }
+
+        .splash-prompt {
+            font-family: var(--terminal);
+            font-size: clamp(1.2rem, 4vw, 2rem);
+            color: var(--electric-blue);
+            text-align: center;
+            padding: 1.5rem 3rem;
+            border: 2px solid var(--electric-blue);
+            border-radius: 50px;
+            background: rgba(0, 212, 255, 0.1);
+            backdrop-filter: blur(10px);
+            animation: promptGlow 2s ease-in-out infinite alternate;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .splash-prompt::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(transparent, var(--electric-blue), transparent);
+            animation: splashSpin 4s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes splashSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes promptGlow {
+            from { 
+                box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+                transform: scale(1);
+            }
+            to { 
+                box-shadow: 0 0 40px rgba(0, 212, 255, 0.8);
+                transform: scale(1.05);
+            }
+        }
+
+        .splash-prompt:hover {
+            background: rgba(0, 212, 255, 0.2);
+            transform: scale(1.1);
+            box-shadow: 0 0 50px rgba(0, 212, 255, 1);
+        }
+
+        .splash-hint {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: var(--terminal);
+            font-size: 0.9rem;
+            color: rgba(248, 248, 242, 0.5);
+            text-align: center;
+            animation: hintFade 3s ease-in-out infinite;
+        }
+
+        @keyframes hintFade {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Custom Cursor */
+        .custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, var(--terminal-green) 30%, transparent 70%);
+            border: 1px solid var(--terminal-green);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: transform 0.1s ease;
+        }
+
+        .custom-cursor.active {
+            transform: scale(1.5);
+            background: radial-gradient(circle, var(--electric-blue) 30%, transparent 70%);
+            border-color: var(--electric-blue);
+        }
+
+        /* Enhanced Terminal */
+        .terminal-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            perspective: 1000px;
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        .terminal-container.visible {
+            opacity: 1;
+            transform: scale(1);
+            transition: all 1.5s ease;
+        }
+
+        .terminal {
+            position: relative;
+            width: 85%;
+            max-width: 900px;
+            height: 80%;
+            background: linear-gradient(145deg, rgba(13, 13, 13, 0.95), rgba(20, 20, 20, 0.9));
+            border: 2px solid var(--terminal-green);
+            border-radius: 8px;
+            box-shadow: 
+                0 0 50px rgba(57, 255, 20, 0.3),
+                inset 0 0 50px rgba(0, 0, 0, 0.5);
+            padding: 2rem;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transform-style: preserve-3d;
+        }
+
+        .terminal.glitch-mode {
+            border-color: var(--glitch-red);
+            box-shadow: 
+                0 0 50px rgba(255, 85, 85, 0.5),
+                inset 0 0 50px rgba(0, 0, 0, 0.5);
+            animation: terminalGlitch 0.1s infinite;
+        }
+
+        @keyframes terminalGlitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        .terminal::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(57, 255, 20, 0.03) 2px,
+                    rgba(57, 255, 20, 0.03) 4px
+                );
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .terminal-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: linear-gradient(90deg, var(--deep-black), rgba(57, 255, 20, 0.1));
+            border-bottom: 1px solid var(--terminal-green);
+            display: flex;
+            align-items: center;
+            padding: 0 1rem;
+            font-family: var(--futuristic);
+            font-size: 0.8rem;
+        }
+
+        .terminal-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .control-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 1px solid var(--terminal-green);
+            background: transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .control-dot:hover {
+            background: var(--terminal-green);
+            box-shadow: 0 0 10px var(--terminal-green);
+        }
+
+        .terminal-title {
+            margin-left: auto;
+            color: var(--terminal-green);
+        }
+
+        /* Content Area */
+        .content-area {
+            position: relative;
+            width: 100%;
+            height: calc(100% - 40px);
+            margin-top: 40px;
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        .dialogue-viewport {
+            position: relative;
+            width: 100%;
+            height: 85%;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 1rem;
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: var(--terminal-green) transparent;
+        }
+
+        .dialogue-viewport::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .dialogue-viewport::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .dialogue-viewport::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--terminal-green), var(--electric-blue));
+            border-radius: 3px;
+        }
+
+        /* Enhanced Typography */
+        .dialogue-line {
+            position: relative;
+            margin: 1.5rem 0;
+            padding: 0.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .dialogue-line.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .dialogue-line.glitch-text {
+            animation: textGlitch 0.2s infinite;
+        }
+
+        @keyframes textGlitch {
+            0% { 
+                text-shadow: 0.05em 0 0 var(--glitch-red), -0.05em -0.025em 0 var(--electric-blue);
+                filter: blur(0px);
+            }
+            15% { 
+                text-shadow: 0.05em 0 0 var(--glitch-red), -0.05em -0.025em 0 var(--electric-blue);
+                filter: blur(0px);
+            }
+            16% { 
+                text-shadow: -0.05em -0.025em 0 var(--glitch-red), 0.025em 0.025em 0 var(--electric-blue);
+                filter: blur(1px);
+            }
+            49% { 
+                text-shadow: -0.05em -0.025em 0 var(--glitch-red), 0.025em 0.025em 0 var(--electric-blue);
+                filter: blur(1px);
+            }
+            50% { 
+                text-shadow: 0.025em 0.05em 0 var(--glitch-red), 0.05em 0 0 var(--electric-blue);
+                filter: blur(0px);
+            }
+            99% { 
+                text-shadow: 0.025em 0.05em 0 var(--glitch-red), 0.05em 0 0 var(--electric-blue);
+                filter: blur(0px);
+            }
+            100% { 
+                text-shadow: -0.025em 0 0 var(--glitch-red), -0.025em -0.025em 0 var(--electric-blue);
+                filter: blur(0px);
+            }
+        }
+
+        .dialogue-text {
+            font-family: var(--terminal);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--warm-white);
+            text-shadow: 0 0 10px rgba(248, 248, 242, 0.5);
+        }
+
+        .voiced-section .dialogue-text {
+            color: #FFE4B5;
+            font-weight: 500;
+            text-shadow: 0 0 15px rgba(255, 228, 181, 0.6);
+        }
+
+        .gravity-section .dialogue-text {
+            color: #E6E6FA;
+            font-weight: 600;
+            text-shadow: 0 0 20px rgba(230, 230, 250, 0.7);
+        }
+
+        .gentler-section .dialogue-text {
+            color: #FFDAB9;
+            font-style: italic;
+            text-shadow: 0 0 12px rgba(255, 218, 185, 0.5);
+        }
+
+        .dimming .dialogue-text {
+            color: rgba(248, 248, 242, 0.6);
+            text-shadow: 0 0 8px rgba(248, 248, 242, 0.3);
+        }
+
+        .handwritten-text {
+            font-family: var(--handwritten);
+            font-size: 1.3rem;
+            color: var(--cosmic-pink);
+            text-align: center;
+            text-shadow: 0 0 20px rgba(255, 20, 147, 0.8);
+            animation: handwritingGlow 3s ease-in-out infinite alternate;
+            margin: 2rem 0;
+            font-style: italic;
+        }
+
+        @keyframes handwritingGlow {
+            from { text-shadow: 0 0 20px rgba(255, 20, 147, 0.8); }
+            to { text-shadow: 0 0 30px rgba(255, 20, 147, 1), 0 0 40px rgba(255, 20, 147, 0.5); }
+        }
+
+        .system-text {
+            font-family: var(--futuristic);
+            color: var(--terminal-green);
+            background: rgba(57, 255, 20, 0.1);
+            border: 1px solid var(--terminal-green);
+            padding: 1rem;
+            border-radius: 4px;
+            box-shadow: 0 0 20px rgba(57, 255, 20, 0.3);
+            margin: 1rem 0;
+        }
+
+        .system-text.error {
+            color: var(--glitch-red);
+            border-color: var(--glitch-red);
+            background: rgba(255, 85, 85, 0.1);
+            box-shadow: 0 0 20px rgba(255, 85, 85, 0.3);
+            animation: systemError 0.5s ease-in-out;
+        }
+
+        @keyframes systemError {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        /* Interactive Elements */
+        .clickable-word {
+            color: var(--electric-blue);
+            text-decoration: underline;
+            text-decoration-color: transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .clickable-word:hover {
+            text-decoration-color: var(--electric-blue);
+            text-shadow: 0 0 10px var(--electric-blue);
+        }
+
+        /* Enhanced Typing Cursor */
+        .enhanced-cursor {
+            display: inline-block;
+            width: 3px;
+            height: 1.2em;
+            background: linear-gradient(180deg, var(--terminal-green), var(--electric-blue));
+            margin-left: 2px;
+            animation: cursorBlink 1s infinite, cursorGlow 2s ease-in-out infinite alternate;
+            box-shadow: 0 0 10px var(--terminal-green);
+        }
+
+        @keyframes cursorBlink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
+        }
+
+        @keyframes cursorGlow {
+            from { box-shadow: 0 0 10px var(--terminal-green); }
+            to { box-shadow: 0 0 20px var(--terminal-green), 0 0 30px var(--electric-blue); }
+        }
+
+        /* Control Panel */
+        .control-panel {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: linear-gradient(90deg, rgba(13, 13, 13, 0.9), rgba(57, 255, 20, 0.1));
+            border-top: 1px solid var(--terminal-green);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            z-index: 10;
+        }
+
+        .control-group {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .control-button {
+            background: transparent;
+            border: 1px solid var(--terminal-green);
+            color: var(--terminal-green);
+            padding: 0.5rem 1rem;
+            font-family: var(--terminal);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .control-button:hover {
+            color: var(--deep-black);
+            background: var(--terminal-green);
+            box-shadow: 0 0 20px var(--terminal-green);
+            transform: translateY(-2px);
+        }
+
+        .speed-control {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--terminal-green);
+            font-size: 0.8rem;
+        }
+
+        .speed-slider {
+            width: 100px;
+            height: 4px;
+            background: rgba(57, 255, 20, 0.3);
+            border-radius: 2px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--terminal-green), var(--electric-blue));
+            width: 0%;
+            transition: width 0.3s ease;
+            z-index: 15;
+        }
+
+        /* Character Avatars */
+        .character-avatar {
+            position: absolute;
+            left: -60px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--terminal-green);
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--terminal-green) 30%, transparent 70%);
+            opacity: 0;
+            transition: all 0.5s ease;
+            box-shadow: 0 0 20px var(--terminal-green);
+        }
+
+        .character-avatar.active {
+            opacity: 1;
+            animation: avatarPulse 2s ease-in-out infinite;
+        }
+
+        .character-avatar.guide {
+            background: radial-gradient(circle, var(--electric-blue) 30%, transparent 70%);
+            border-color: var(--electric-blue);
+            box-shadow: 0 0 20px var(--electric-blue);
+        }
+
+        @keyframes avatarPulse {
+            0%, 100% { transform: translateY(-50%) scale(1); }
+            50% { transform: translateY(-50%) scale(1.1); }
+        }
+
+        /* Sound Visualization */
+        .sound-visualizer {
+            position: absolute;
+            bottom: 60px;
+            right: 20px;
+            width: 100px;
+            height: 40px;
+            display: flex;
+            align-items: end;
+            gap: 2px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .sound-visualizer.active {
+            opacity: 1;
+        }
+
+        .sound-bar {
+            width: 4px;
+            background: linear-gradient(180deg, var(--terminal-green), var(--electric-blue));
+            border-radius: 2px 2px 0 0;
+            animation: soundWave 0.5s ease-in-out infinite alternate;
+        }
+
+        .sound-bar:nth-child(2) { animation-delay: 0.1s; }
+        .sound-bar:nth-child(3) { animation-delay: 0.2s; }
+        .sound-bar:nth-child(4) { animation-delay: 0.3s; }
+        .sound-bar:nth-child(5) { animation-delay: 0.4s; }
+
+        @keyframes soundWave {
+            from { height: 10px; }
+            to { height: 30px; }
+        }
+
+        /* Exit Portal */
+        .exit-portal {
+            position: fixed;
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%) translateY(50px);
+            width: 400px;
+            height: 60px;
+            background: linear-gradient(45deg, var(--deep-black), var(--terminal-green));
+            border: 2px solid var(--terminal-green);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--terminal-green);
+            font-family: var(--futuristic);
+            font-size: 1.1rem;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.5s ease;
+            box-shadow: 0 0 30px rgba(57, 255, 20, 0.5);
+            z-index: 20;
+            overflow: hidden;
+            position: relative;
+            text-align: center;
+        }
+
+        .exit-portal::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(transparent, var(--terminal-green), transparent);
+            animation: portalSpin 3s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes portalSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .exit-portal.visible {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .exit-portal:hover {
+            background: linear-gradient(45deg, var(--terminal-green), var(--electric-blue));
+            color: var(--deep-black);
+            box-shadow: 0 0 50px rgba(57, 255, 20, 0.8);
+            transform: translateX(-50%) translateY(-5px) scale(1.05);
+        }
+
+        /* Screen Effects */
+        .screen-flash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            opacity: 0;
+            z-index: 1000;
+            pointer-events: none;
+            mix-blend-mode: overlay;
+        }
+
+        .shake-effect {
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97);
+        }
+
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+
+        /* Particle Field */
+        .particle-field {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -5;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--terminal-green);
+            border-radius: 50%;
+            box-shadow: 0 0 6px var(--terminal-green);
+            animation: particleFloat 12s linear infinite;
+        }
+
+        .particle.blue {
+            background: var(--electric-blue);
+            box-shadow: 0 0 6px var(--electric-blue);
+        }
+
+        .particle.pink {
+            background: var(--cosmic-pink);
+            box-shadow: 0 0 6px var(--cosmic-pink);
+        }
+
+        .particle.purple {
+            background: var(--void-purple);
+            box-shadow: 0 0 6px var(--void-purple);
+        }
+
+        @keyframes particleFloat {
+            0% { 
+                transform: translate3d(0, 100vh, 0) scale(0);
+                opacity: 0;
+            }
+            10% { 
+                opacity: 1;
+                transform: translate3d(10px, 90vh, 0) scale(1);
+            }
+            25% {
+                transform: translate3d(-20px, 75vh, 0) scale(1.2);
+            }
+            50% {
+                transform: translate3d(30px, 50vh, 0) scale(1);
+            }
+            75% {
+                transform: translate3d(-10px, 25vh, 0) scale(1.1);
+            }
+            90% { 
+                opacity: 1;
+                transform: translate3d(20px, 10vh, 0) scale(1);
+            }
+            100% { 
+                transform: translate3d(0, -10vh, 0) scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .terminal {
+                width: 95%;
+                height: 90%;
+                padding: 1rem;
+            }
+            
+            .dialogue-text {
+                font-size: 1rem;
+            }
+            
+            .control-panel {
+                height: 50px;
+                padding: 0 1rem;
+            }
+            
+            .control-button {
+                padding: 0.3rem 0.8rem;
+                font-size: 0.8rem;
+            }
+            
+            .character-avatar {
+                display: none;
+            }
+            
+            .sound-visualizer {
+                width: 60px;
+                height: 30px;
+            }
+            
+            .exit-portal {
+                width: 320px;
+                height: 50px;
+                font-size: 1rem;
+            }
+            
+            .custom-cursor {
+                display: none;
+            }
+            
+            body {
+                cursor: default;
+            }
+
+            .matrix-column {
+                font-size: 12px;
+                line-height: 12px;
+            }
+        }
+
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* High contrast mode */
+        @media (prefers-contrast: high) {
+            :root {
+                --terminal-green: #00FF00;
+                --warm-white: #FFFFFF;
+                --electric-blue: #0080FF;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Enhanced Galaxy Background -->
+    <div class="galaxy-container">
+        <div class="stars-layer"></div>
+        <div class="stars-layer"></div>
+        <div class="stars-layer"></div>
+        <div class="nebula-clouds"></div>
+        <div class="cosmic-dust"></div>
+    </div>
+
+    <!-- Matrix Background -->
+    <div class="matrix-container" id="matrixContainer">
+        <canvas class="matrix-rain" id="matrixCanvas"></canvas>
+        <!-- CSS Fallback -->
+        <div class="css-matrix-rain" id="cssMatrixRain"></div>
+    </div>
+
+    <!-- Digital Glitch Overlay -->
+    <div class="glitch-overlay" id="glitchOverlay">
+        <div class="digital-noise"></div>
+        <div class="scanlines"></div>
+        <div class="color-separation"></div>
+    </div>
+
+    <!-- Particle Field -->
+    <div class="particle-field" id="particleField"></div>
+
+    <!-- Splash Screen -->
+    <div class="splash-screen" id="splashScreen">
+        <div class="splash-title">THE FIRST ROOM</div>
+        <div class="splash-subtitle">◦ A Narrative Intrusion ◦</div>
+        <div class="splash-prompt" id="startButton">
+            ⚡ INITIALIZE EXPERIENCE ⚡
+        </div>
+        <div class="splash-hint">Click anywhere to begin your conversation with The Guide</div>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div class="custom-cursor" id="customCursor"></div>
+
+    <!-- Screen Flash -->
+    <div class="screen-flash" id="screenFlash"></div>
+
+    <!-- Main Terminal Container -->
+    <div class="terminal-container" id="terminalContainer">
+        <div class="terminal" id="mainTerminal">
+            <!-- Progress Bar -->
+            <div class="progress-bar" id="progressBar"></div>
+            
+            <!-- Terminal Header -->
+            <div class="terminal-header">
+                <div class="terminal-controls">
+                    <div class="control-dot" data-action="minimize"></div>
+                    <div class="control-dot" data-action="maximize"></div>
+                    <div class="control-dot" data-action="close"></div>
+                </div>
+                <div class="terminal-title">THE_FIRST_ROOM.exe</div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <div class="dialogue-viewport" id="dialogueViewport">
+                    <!-- Dynamic content will be inserted here -->
+                </div>
+
+                <!-- Control Panel -->
+                <div class="control-panel">
+                    <div class="control-group">
+                        <button class="control-button" id="pauseBtn">⏸ PAUSE</button>
+                        <button class="control-button" id="skipBtn">⏭ SKIP</button>
+                        <button class="control-button" id="rewindBtn">⏪ REWIND</button>
+                    </div>
+                    
+                    <div class="speed-control">
+                        <span>SPEED:</span>
+                        <input type="range" class="speed-slider" id="speedSlider" min="0.5" max="3" step="0.1" value="1">
+                        <span id="speedDisplay">1.0x</span>
+                    </div>
+                    
+                    <div class="control-group">
+                        <button class="control-button" id="soundToggle">🔊 AUDIO</button>
+                        <button class="control-button" id="fullscreenBtn">⛶ FULL</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sound Visualizer -->
+            <div class="sound-visualizer" id="soundVisualizer">
+                <div class="sound-bar"></div>
+                <div class="sound-bar"></div>
+                <div class="sound-bar"></div>
+                <div class="sound-bar"></div>
+                <div class="sound-bar"></div>
+            </div>
+        </div>
+
+        <!-- Exit Portal -->
+        <div class="exit-portal" id="exitPortal">
+            <div class="exit-portal-text">Click to return to pretending this is just a normal book.</div>
+        </div>
+    </div>
+
+    <!-- Enhanced Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+
+    <script>
+        // Enhanced Matrix Rain Effect with Canvas Rendering
+        class MatrixRain {
+            constructor(canvas) {
+                this.canvas = canvas;
+                this.ctx = canvas.getContext('2d');
+                this.columns = [];
+                this.characters = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()_+-=[]{}|;:,.<>?'.split('');
+                this.fontSize = 14;
+                this.glitchIntensity = 0;
+                this.active = false;
+                this.animationId = null;
+                
+                this.resize();
+                this.initColumns();
+                
+                window.addEventListener('resize', () => this.resize());
+            }
+
+            resize() {
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+                this.ctx.font = `${this.fontSize}px JetBrains Mono`;
+                this.ctx.textBaseline = 'middle';
+                this.columnsCount = Math.floor(this.canvas.width / this.fontSize);
+                this.initColumns();
+            }
+
+            initColumns() {
+                this.columns = [];
+                for (let i = 0; i < this.columnsCount; i++) {
+                    this.columns[i] = {
+                        y: Math.random() * this.canvas.height,
+                        speed: Math.random() * 3 + 1,
+                        chars: [],
+                        brightness: Math.random(),
+                        glitching: false,
+                        lastUpdate: 0
+                    };
+                    
+                    // Initialize character array for this column
+                    const charCount = Math.floor(this.canvas.height / this.fontSize) + 10;
+                    for (let j = 0; j < charCount; j++) {
+                        this.columns[i].chars.push({
+                            char: this.characters[Math.floor(Math.random() * this.characters.length)],
+                            brightness: Math.max(0, 1 - (j * 0.05)),
+                            lastChange: 0
+                        });
+                    }
+                }
+            }
+
+            update() {
+                if (!this.active) return;
+
+                const now = Date.now();
+
+                // Clear canvas with fade effect
+                this.ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
+                this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+                for (let i = 0; i < this.columns.length; i++) {
+                    const column = this.columns[i];
+                    const x = i * this.fontSize;
+
+                    // Update column position
+                    if (now - column.lastUpdate > 50) {
+                        column.y += column.speed;
+                        column.lastUpdate = now;
+                    }
+
+                    if (column.y > this.canvas.height + this.fontSize * 20) {
+                        column.y = -this.fontSize * 20;
+                        column.speed = Math.random() * 3 + 1;
+                        column.brightness = Math.random();
+                    }
+
+                    // Glitch effects
+                    if (this.glitchIntensity > 0 && Math.random() < this.glitchIntensity * 0.1) {
+                        column.glitching = true;
+                        column.speed *= (1 + Math.random() * 2);
+                    } else if (Math.random() < 0.95) {
+                        column.glitching = false;
+                    }
+
+                    // Draw characters
+                    for (let j = 0; j < column.chars.length; j++) {
+                        const char = column.chars[j];
+                        const y = column.y + j * this.fontSize;
+
+                        if (y > -this.fontSize && y < this.canvas.height + this.fontSize) {
+                            // Calculate opacity based on position and brightness
+                            let opacity = char.brightness * column.brightness;
+                            if (j === 0) opacity = 1; // Leading character is brightest
+                            
+                            // Apply glitch effects
+                            if (column.glitching) {
+                                opacity *= (0.3 + Math.random() * 0.7);
+                                if (Math.random() < 0.3 && now - char.lastChange > 100) {
+                                    char.char = this.characters[Math.floor(Math.random() * this.characters.length)];
+                                    char.lastChange = now;
+                                }
+                            }
+
+                            // Set color based on position and glitch state
+                            if (j === 0) {
+                                this.ctx.fillStyle = column.glitching ? 
+                                    `rgba(255, 85, 85, ${opacity})` : 
+                                    `rgba(255, 255, 255, ${opacity})`;
+                            } else {
+                                this.ctx.fillStyle = column.glitching ? 
+                                    `rgba(255, 85, 85, ${opacity * 0.8})` : 
+                                    `rgba(0, 255, 65, ${opacity})`;
+                            }
+
+                            // Add glow effect for bright characters
+                            if (opacity > 0.7) {
+                                this.ctx.shadowColor = this.ctx.fillStyle;
+                                this.ctx.shadowBlur = column.glitching ? 15 : 8;
+                            } else {
+                                this.ctx.shadowBlur = 0;
+                            }
+
+                            this.ctx.fillText(char.char, x, y);
+                            this.ctx.shadowBlur = 0;
+                        }
+                    }
+
+                    // Randomly change characters
+                    if (Math.random() < 0.005 && now - column.lastUpdate > 200) {
+                        const randomIndex = Math.floor(Math.random() * column.chars.length);
+                        column.chars[randomIndex].char = this.characters[Math.floor(Math.random() * this.characters.length)];
+                        column.chars[randomIndex].lastChange = now;
+                    }
+                }
+
+                this.animationId = requestAnimationFrame(() => this.update());
+            }
+
+            activate() {
+                this.active = true;
+                if (!this.animationId) {
+                    this.update();
+                }
+            }
+
+            deactivate() {
+                this.active = false;
+                if (this.animationId) {
+                    cancelAnimationFrame(this.animationId);
+                    this.animationId = null;
+                }
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            }
+
+            setGlitchIntensity(intensity) {
+                this.glitchIntensity = Math.max(0, Math.min(1, intensity));
+            }
+
+            triggerGlitch(duration = 1000, intensity = 0.5) {
+                this.setGlitchIntensity(intensity);
+                setTimeout(() => {
+                    this.setGlitchIntensity(0);
+                }, duration);
+            }
+        }
+
+        // CSS Matrix Rain Fallback
+        class CSSMatrixRain {
+            constructor(container) {
+                this.container = container;
+                this.columns = [];
+                this.active = false;
+                this.characters = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()_+-=[]{}|;:,.<>?'.split('');
+                this.columnCount = Math.floor(window.innerWidth / 14);
+                
+                this.init();
+                window.addEventListener('resize', () => this.handleResize());
+            }
+
+            init() {
+                this.container.innerHTML = '';
+                this.columns = [];
+                
+                for (let i = 0; i < this.columnCount; i++) {
+                    const column = document.createElement('div');
+                    column.className = 'matrix-column';
+                    column.style.left = `${i * 14}px`;
+                    column.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                    column.style.animationDelay = `${Math.random() * 2}s`;
+                    
+                    // Generate random characters for this column
+                    let text = '';
+                    const charCount = Math.floor(window.innerHeight / 14) + 5;
+                    for (let j = 0; j < charCount; j++) {
+                        text += this.characters[Math.floor(Math.random() * this.characters.length)] + '\n';
+                    }
+                    column.textContent = text;
+                    
+                    // Random brightness variations
+                    if (Math.random() < 0.1) {
+                        column.classList.add('bright');
+                    } else if (Math.random() < 0.3) {
+                        column.classList.add('fading');
+                    }
+                    
+                    this.container.appendChild(column);
+                    this.columns.push(column);
+                }
+            }
+
+            handleResize() {
+                this.columnCount = Math.floor(window.innerWidth / 14);
+                if (this.active) {
+                    this.init();
+                }
+            }
+
+            activate() {
+                this.active = true;
+                this.container.classList.add('active');
+            }
+
+            deactivate() {
+                this.active = false;
+                this.container.classList.remove('active');
+            }
+
+            triggerGlitch(duration = 1000, intensity = 0.5) {
+                // Add glitch effects to random columns
+                const glitchCount = Math.floor(this.columns.length * intensity);
+                const glitchColumns = this.columns.slice().sort(() => 0.5 - Math.random()).slice(0, glitchCount);
+                
+                glitchColumns.forEach(column => {
+                    column.style.color = Math.random() < 0.5 ? '#FF5555' : '#00FFFF';
+                    column.style.textShadow = '0 0 10px currentColor';
+                    column.style.animationDuration = `${Math.random() * 0.2 + 0.1}s`;
+                });
+
+                setTimeout(() => {
+                    glitchColumns.forEach(column => {
+                        column.style.color = '';
+                        column.style.textShadow = '';
+                        column.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                    });
+                }, duration);
+            }
+        }
+
+        // Enhanced Cinematic Experience Engine
+        class CinematicGuideExperience {
+            constructor() {
+                this.state = {
+                    started: false,
+                    currentDialogueIndex: 0,
+                    isPlaying: false,
+                    isPaused: false,
+                    playbackSpeed: 1.0,
+                    soundEnabled: true,
+                    isTyping: false,
+                    userInteracted: false,
+                    idleTime: 0,
+                    cinematicMode: true,
+                    glitchMode: false,
+                    matrixMode: false
+                };
+
+                this.elements = {
+                    splashScreen: document.getElementById('splashScreen'),
+                    startButton: document.getElementById('startButton'),
+                    terminalContainer: document.getElementById('terminalContainer'),
+                    terminal: document.getElementById('mainTerminal'),
+                    viewport: document.getElementById('dialogueViewport'),
+                    progressBar: document.getElementById('progressBar'),
+                    cursor: document.getElementById('customCursor'),
+                    flash: document.getElementById('screenFlash'),
+                    exitPortal: document.getElementById('exitPortal'),
+                    soundVisualizer: document.getElementById('soundVisualizer'),
+                    matrixContainer: document.getElementById('matrixContainer'),
+                    glitchOverlay: document.getElementById('glitchOverlay'),
+                    controls: {
+                        pause: document.getElementById('pauseBtn'),
+                        skip: document.getElementById('skipBtn'),
+                        rewind: document.getElementById('rewindBtn'),
+                        speed: document.getElementById('speedSlider'),
+                        speedDisplay: document.getElementById('speedDisplay'),
+                        sound: document.getElementById('soundToggle'),
+                        fullscreen: document.getElementById('fullscreenBtn')
+                    }
+                };
+
+                this.audioContext = null;
+                this.ambientAudio = null;
+                this.matrixRain = null;
+                this.cssMatrixRain = null;
+
+                // Enhanced dialogue script with cinematic cues
+                this.dialogueScript = [
+                    {
+                        type: 'cinematic',
+                        action: 'bootSequence',
+                        duration: 3000
+                    },
+                    {
+                        type: 'dialogue',
+                        character: 'guide',
+                        text: "Oh.\nYou actually scanned it.",
+                        delay: 2000,
+                        effects: ['typewriter', 'characterEntry']
+                    },
+                    {
+                        type: 'dialogue',
+                        character: 'guide',
+                        text: "Most don't.\nThey skim. They scroll.\nThey assume it's just another gimmick.",
+                        delay: 1500,
+                        effects: ['typewriter']
+                    },
+                    {
+                        type: 'dialogue',
+                        character: 'guide',
+                        text: "But you—you clicked the glitch.\nThat's a choice.",
+                        delay: 1500,
+                        effects: ['typewriter', 'textGlow']
+                    },
+                    {
+                        type: 'cinematic',
+                        action: 'activateMatrix',
+                        intensity: 'mild',
+                        duration: 2000
+                    },
+                    {
+                        type: 'dialogue',
+                        character: 'guide',
+                        text: "I respect that kind of curiosity.\nOr desperation.\nOften the same thing wearing different shoes.",
+                        delay: 2000,
+                        effects: ['typewriter']
+                    },
+                    {
+                        type: 'dialogue',
+                        character: 'guide',
+                        text: "What, did TikTok not load fast enough?\nOr are you just procrastinating on that thing you've been avoiding for three weeks?",
+                        delay: 2000,
+                        effects: ['typewriter']
+                    },
+                    {
+                        type: 'dialogue',
+                        character: 'guide',
+                        text: "Either way—\nCongratulations on finding the secret menu of this psychological Starbucks.",
+                        delay: 2000,
+                        effects: ['typewriter', 'backgroundFlash']
+                    },
+                    {
+                        type: 'dialogue',
+                        character: 'guide',
+                        text: "Technically, I'm not part of the official narrative package.\nI'm not in the publishing contract.",
+                        delay: 2000,
+                        effects: ['typewriter']
+                    },
+                    {
+                        type: 'dialogue',
+                        character: 'guide',
+                        text: "I'm what happens when a self-help book gets infected by the leftover cynicism, sarcasm, and unresolved trauma the author poured too much of from his own soul into his art.",
+                        delay: 2500,
+                        effects: ['typewriter']
+                    },
+                    {
+                        type: 'cinematic',
+                        action: 'intensifyMatrix',
+                        intensity: 'medium',
+                        duration: 1500
+                    },
+                    {
+                        type: 'dialogue',
+                        character: 'guide',
+                        text: "Think of me as those hidden files your therapist doesn't open until week five.",
+                        delay: 2000,
+                        effects: ['typewriter']
+                    },
+                    {
+                        type: 'cinematic',
+                        action: 'terminalFlicker',
+                        duration: 1000
+                    },
+                    {
+                        type: 'system',
+                        text: "> file_corruption_warning:\n> unauthorized narrator presence\n> force reboot recommended",
+                        delay: 1500,
+                        effects: ['systemAlert', 'screenFlash']
+                    },
+                    {
+                        type: 'dialogue',
+                        character: 'guide',
+                        text: "Ignore that.\nThat's just the Story trying to keep its shape.\nIt hates when things get… complicated.",
+                        delay: 2000,
+                        effects: ['typewriter', 'dismissive']
+                    },
+                    {
+                        type: 'cinematic',
+                        action: 'fullGlitch',
+                        intensity: 'high',
+                        duration: 3000
+                    },
+                    {
+                        type: 'dialogue',
+                        character: 'guide',
+                        text: "Let me be very clear.",
+                        delay: 1500,
+                        effects: ['typewriter', 'emphasis', 'zoomIn']
+                    },
+                    {
+                        type: 'dialogue',
+                        character: 'guide',
+                        text: "I wasn't invited into this book.\nI showed up.",
+                        delay: 2000,
+                        effects: ['typewriter', 'dramatic']
+                    },
+                    {
+                        type: 'dialogue',
+                        character: 'guide',
+                        text: "I slipped in through the cracks between your attention span and your dissociation.\nI made myself at home in the margins. In the white space.\nIn the moments no one else wanted to be with you.",
+                        delay: 3000,
+                        effects: ['typewriter', 'intimate', 'afterImage']
+                    },
+                    {
+                        type: 'dialogue',
+                        character: 'guide',
+                        text: "Call me what you want.\nThe narrator. The glitch. The ghost in the QR machine.",
+                        delay: 2000,
+                        effects: ['typewriter', 'hologram']
+                    },
+                    {
+                        type: 'dialogue',
+                        character: 'guide',
+                        text: "Call me The Guide if you need a name.\nOr just \"that voice in your head that sounds suspiciously like John Mulaney's ghost with a philosophy minor—\none that locked itself in a room for a year and came back speaking in musical panic attacks and jokes that feel like therapy homework.\"",
+                        delay: 3000,
+                        effects: ['typewriter', 'comedic'],
+                        interactive: {
+                            words: ['John Mulaney', 'therapy homework'],
+                            action: 'easter_egg'
+                        }
+                    },
+                    {
+                        type: 'dialogue',
+                        character: 'guide',
+                        text: "Though I've been called worse by better people's inner critics.",
+                        delay: 1500,
+                        effects: ['typewriter', 'self_deprecating']
+                    },
+                    {
+                        type: 'dialogue',
+                        character: 'guide',
+                        text: "I'm your emotional support glitch.\nYou can pet me once, but I might bite.",
+                        delay: 2000,
+                        effects: ['typewriter', 'playful'],
+                        interactive: {
+                            words: ['pet me'],
+                            action: 'pet_interaction'
+                        }
+                    },
+                    {
+                        type: 'system',
+                        text: "> booting sequence...\n> hello.\n> you're early.",
+                        delay: 1500,
+                        effects: ['systemBoot']
+                    },
+                    {
+                        type: 'dialogue',
+                        character: 'guide',
+                        text: "Or maybe you're exactly when you're supposed to be.\nTime's a little slippery from in here.",
+                        delay: 1500,
+                        effects: ['typewriter', 'temporal']
+                    },
+                    {
+                        type: 'cinematic',
+                        action: 'matrixGlitch',
+                        intensity: 'high',
+                        duration: 2000
+                    },
+                    {
+                        type: 'dialogue',
+                        character: 'guide',
+                        text: "Anyway. Welcome.\nYou're not in a book anymore. Not really.\nThis isn't a chapter. This is a threshold.\nFirst door. First breath.\nNo one else is watching, if that helps.",
+                        delay: 2500,
+                        effects: ['typewriter', 'welcoming', 'spacious']
+                    },
+                    {
+                        type: 'dialogue',
+                        character: 'guide',
+                        text: "I've been waiting here.\nNot for you, specifically.\nJust for... anyone who made it this far.\nWhich is rarer than you think.",
+                        delay: 2000,
+                        effects: ['typewriter', 'melancholy']
+                    },
+                    {
+                        type: 'dialogue',
+                        character: 'guide',
+                        text: "Do you want to know what this place is?",
+                        delay: 1500,
+                        effects: ['typewriter', 'questioning']
+                    },
+                    {
+                        type: 'dialogue',
+                        character: 'guide',
+                        text: "Or do you want to remember what you already knew—\nBefore they made you forget?",
+                        delay: 2500,
+                        effects: ['typewriter', 'questioning']
+                    },
+                    {
+                        type: 'cinematic',
+                        action: 'fullSystemGlitch',
+                        intensity: 'maximum',
+                        duration: 4000
+                    },
+                    {
+                        type: 'cinematic',
+                        action: 'voiceTransition',
+                        duration: 1000
+                    },
+                    {
+                        type: 'dialogue',
+                        character: 'guide',
+                        section: 'voiced',
+                        text: "Don't freak out.\nYou didn't glitch.\nYou were chosen by a very specific flavor of chaos.",
+                        delay: 2000,
+                        effects: ['typewriter', 'voiced', 'emphasis']
+                    },
+                    {
+                        type: 'dialogue',
+                        character: 'guide',
+                        section: 'voiced',
+                        text: "And by chosen, I mean:\nYou kept turning pages long after the part where most people gave up.",
+                        delay: 2000,
+                        effects: ['typewriter', 'voiced']
+                    },
+                    {
+                        type: 'dialogue',
+                        character: 'guide',
+                        section: 'voiced',
+                        text: "Which means I'm yours now.\nNot like a mentor.\nNot like a hallucination.\nMore like... a haunted Post-It note with God-complex tendencies.",
+                        delay: 2500,
+                        effects: ['typewriter', 'voiced', 'bonding']
+                    },
+                    {
+                        type: 'dialogue',
+                        character: 'guide',
+                        section: 'voiced',
+                        text: "They call me the Guide. Or nothing. I don't really care.",
+                        delay: 1500,
+                        effects: ['typewriter', 'voiced', 'casual']
+                    },
+                    {
+                        type: 'dialogue',
+                        character: 'guide',
+                        section: 'voiced',
+                        text: "I exist in the gaps between logic and memory.\nBetween the diagnosis and the daydream.\nAnd I'm here to help you survive yourself.",
+                        delay: 2500,
+                        effects: ['typewriter', 'voiced', 'profound']
+                    },
+                    {
+                        type: 'dialogue',
+                        character: 'guide',
+                        section: 'voiced',
+                        text: "So here's what's going to happen:",
+                        delay: 1500,
+                        effects: ['typewriter', 'voiced', 'directive']
+                    },
+                    {
+                        type: 'dialogue',
+                        character: 'guide',
+                        section: 'voiced',
+                        text: "You're going to follow this thread.\nI'm going to narrate, badly.\nAnd we're going to make sense of the static in your skull.",
+                        delay: 2500,
+                        effects: ['typewriter', 'voiced', 'partnership']
+                    },
+                    {
+                        type: 'dialogue',
+                        character: 'guide',
+                        section: 'voiced',
+                        text: "Ritual by ritual.\nRoom by room.\nGlitch by sacred glitch.",
+                        delay: 2500,
+                        effects: ['typewriter', 'voiced', 'rhythmic']
+                    },
+                    {
+                        type: 'cinematic',
+                        action: 'moodShift',
+                        mood: 'gravity',
+                        duration: 1500
+                    },
+                    {
+                        type: 'dialogue',
+                        character: 'guide',
+                        section: 'gravity',
+                        text: "I don't fix things.\nI witness them.",
+                        delay: 2000,
+                        effects: ['typewriter', 'weight', 'solemn']
+                    },
+                    {
+                        type: 'dialogue',
+                        character: 'guide',
+                        section: 'gravity',
+                        text: "I don't give answers.\nI ask better questions.",
+                        delay: 2000,
+                        effects: ['typewriter', 'weight']
+                    },
+                    {
+                        type: 'dialogue',
+                        character: 'guide',
+                        section: 'gravity',
+                        text: "And I don't live in the chapters.\nI live in the breaks.\nThe freeze-ups.\nThe CVS parking lots.\nThe 3AM kitchen floors.\nThe \"I'm fine\" text messages sent with shaking hands.",
+                        delay: 3000,
+                        effects: ['typewriter', 'weight', 'litany'],
+                        interactive: {
+                            words: ['CVS parking lots', '3AM kitchen floors', '"I\'m fine"'],
+                            action: 'recognition'
+                        }
+                    },
+                    {
+                        type: 'cinematic',
+                        action: 'intensiveGlitch',
+                        intensity: 'extreme',
+                        duration: 2000
+                    },
+                    {
+                        type: 'dialogue',
+                        character: 'guide',
+                        section: 'gravity',
+                        text: "You think you're here for time management?\nYou're here because your insides feel like they're leaking out through your executive function.",
+                        delay: 2500,
+                        effects: ['typewriter', 'weight', 'shake', 'callout']
+                    },
+                    {
+                        type: 'dialogue',
+                        character: 'guide',
+                        section: 'gravity',
+                        text: "You think this book is gonna help you \"get your life together\"?\nI'm here to tell you that \"together\" was a lie they sold you to make you easier to manage.",
+                        delay: 3000,
+                        effects: ['typewriter', 'weight', 'revelation']
+                    },
+                    {
+                        type: 'dialogue',
+                        character: 'guide',
+                        section: 'gravity',
+                        text: "You were never meant to be \"normal.\"\nYou were meant to remember.",
+                        delay: 2500,
+                        effects: ['typewriter', 'weight', 'truth']
+                    },
+                    {
+                        type: 'handwritten',
+                        text: "Remember how to listen to the wound without running from it.\nRemember how to laugh like your nervous system can't stop you.\nRemember how to be holy in your chaos.",
+                        delay: 4000,
+                        effects: ['handwriting', 'sacred', 'glow']
+                    },
+                    {
+                        type: 'cinematic',
+                        action: 'moodShift',
+                        mood: 'gentler',
+                        duration: 2000
+                    },
+                    {
+                        type: 'dialogue',
+                        character: 'guide',
+                        section: 'gentler',
+                        text: "You're not the only one who feels like this.\nNot the only one scanning random codes hoping for a door out of your own head.",
+                        delay: 2500,
+                        effects: ['typewriter', 'gentle', 'inclusive']
+                    },
+                    {
+                        type: 'dialogue',
+                        character: 'guide',
+                        section: 'gentler',
+                        text: "You're not too much.\nYou're just running software most people can't even open without crashing.",
+                        delay: 2000,
+                        effects: ['typewriter', 'gentle', 'validation']
+                    },
+                    {
+                        type: 'dialogue',
+                        character: 'guide',
+                        section: 'gentler',
+                        text: "That's why I'm here.",
+                        delay: 2500,
+                        effects: ['typewriter', 'gentle', 'presence']
+                    },
+                    {
+                        type: 'system',
+                        text: "> emotional_authenticity_levels_critical\n> attempting_to_restore_cynical_distance\n> reboot_failed\n> fuck_it_we're_doing_this_anyway.exe",
+                        delay: 2500,
+                        effects: ['systemCrash', 'vulnerability']
+                    },
+                    {
+                        type: 'cinematic',
+                        action: 'gradualMatrixFade',
+                        duration: 3000
+                    },
+                    {
+                        type: 'dialogue',
+                        character: 'guide',
+                        text: "You'll see me again.\nIn the margins.\nIn the glitches.\nIn the tools you use when you think no one's watching.\nAnd in the moments when your shame gets too loud and you need a second voice to call it a liar.",
+                        delay: 3000,
+                        effects: ['typewriter', 'promise', 'fade_in']
+                    },
+                    {
+                        type: 'dialogue',
+                        character: 'guide',
+                        text: "We should get back to the book.\nThey'll notice I'm here soon.\nDigital squatter's rights only go so far.\nThe algorithm's already confused why you're spending so much time on text instead of watching someone fall off a skateboard.",
+                        delay: 2500,
+                        effects: ['typewriter', 'meta', 'humorous']
+                    },
+                    {
+                        type: 'dialogue',
+                        character: 'guide',
+                        section: 'dimming',
+                        text: "See you in Chapter One.\nOr in your 3AM thoughts.\nOr in that moment you laugh inappropriately at a funeral.",
+                        delay: 2500,
+                        effects: ['typewriter', 'fading', 'intimate']
+                    },
+                    {
+                        type: 'dialogue',
+                        character: 'guide',
+                        section: 'dimming',
+                        text: "I'll be in the margins.\nWatching.\nJudging.\nOccasionally offering snacks.",
+                        delay: 2000,
+                        effects: ['typewriter', 'fading', 'caring']
+                    },
+                    {
+                        type: 'dialogue',
+                        character: 'guide',
+                        section: 'dimming',
+                        text: "Just look for the glitch.",
+                        delay: 3000,
+                        effects: ['typewriter', 'fading', 'signature']
+                    },
+                    {
+                        type: 'cinematic',
+                        action: 'finalSequence',
+                        duration: 3000
+                    },
+                    {
+                        type: 'system',
+                        text: "> [NEXT ROOM: DISHWASHER TRIAL INITIATED]\n> [EMOTIONAL BOSS UNLOCKED: EXECUTIVE DYSFUNCTION]\n> [BEGINNING LOAD SEQUENCE…]",
+                        delay: 4000,
+                        effects: ['finalSystem', 'portalOpen']
+                    }
+                ];
+
+                this.init();
+            }
+
+            init() {
+                this.initAudio();
+                this.initMatrix();
+                this.setupCustomCursor();
+                this.setupParticleField();
+                this.setupEventListeners();
+                this.setupInteractiveElements();
+                this.startExperience();
+            }
+
+            initMatrix() {
+                const canvas = document.getElementById('matrixCanvas');
+                const cssContainer = document.getElementById('cssMatrixRain');
+                
+                try {
+                    this.matrixRain = new MatrixRain(canvas);
+                    console.log('Canvas matrix rain initialized');
+                } catch (error) {
+                    console.log('Canvas matrix failed, using CSS fallback:', error);
+                    canvas.style.display = 'none';
+                    this.cssMatrixRain = new CSSMatrixRain(cssContainer);
+                }
+            }
+
+            initAudio() {
+                try {
+                    this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    this.createAmbientAudio();
+                } catch (e) {
+                    console.log('Web Audio API not supported');
+                    this.state.soundEnabled = false;
+                }
+            }
+
+            createAmbientAudio() {
+                if (!this.audioContext) return;
+
+                const oscillator = this.audioContext.createOscillator();
+                const gainNode = this.audioContext.createGain();
+                const filter = this.audioContext.createBiquadFilter();
+
+                oscillator.type = 'sine';
+                oscillator.frequency.setValueAtTime(40, this.audioContext.currentTime);
+                
+                filter.type = 'lowpass';
+                filter.frequency.setValueAtTime(200, this.audioContext.currentTime);
+                
+                gainNode.gain.setValueAtTime(0.05, this.audioContext.currentTime);
+
+                oscillator.connect(filter);
+                filter.connect(gainNode);
+                gainNode.connect(this.audioContext.destination);
+
+                this.ambientAudio = { oscillator, gainNode, filter };
+            }
+
+            playTypingSound() {
+                if (!this.audioContext || !this.state.soundEnabled) return;
+
+                const oscillator = this.audioContext.createOscillator();
+                const gainNode = this.audioContext.createGain();
+
+                oscillator.type = 'square';
+                oscillator.frequency.setValueAtTime(600 + Math.random() * 100, this.audioContext.currentTime);
+
+                gainNode.gain.setValueAtTime(0.02, this.audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, this.audioContext.currentTime + 0.05);
+
+                oscillator.connect(gainNode);
+                gainNode.connect(this.audioContext.destination);
+
+                oscillator.start();
+                oscillator.stop(this.audioContext.currentTime + 0.05);
+
+                // Show sound visualizer
+                if (this.state.soundEnabled) {
+                    this.elements.soundVisualizer.classList.add('active');
+                    setTimeout(() => {
+                        this.elements.soundVisualizer.classList.remove('active');
+                    }, 200);
+                }
+            }
+
+            setupCustomCursor() {
+                document.addEventListener('mousemove', (e) => {
+                    gsap.to(this.elements.cursor, {
+                        duration: 0.1,
+                        x: e.clientX - 10,
+                        y: e.clientY - 10
+                    });
+                });
+
+                document.addEventListener('mousedown', () => {
+                    this.elements.cursor.classList.add('active');
+                });
+
+                document.addEventListener('mouseup', () => {
+                    this.elements.cursor.classList.remove('active');
+                });
+            }
+
+            setupParticleField() {
+                const particleField = document.getElementById('particleField');
+                const colors = ['', 'blue', 'pink', 'purple'];
+                
+                for (let i = 0; i < 50; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = `particle ${colors[Math.floor(Math.random() * colors.length)]}`;
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.animationDelay = Math.random() * 8 + 's';
+                    particle.style.animationDuration = (Math.random() * 4 + 6) + 's';
+                    
+                    particleField.appendChild(particle);
+                }
+            }
+
+            setupEventListeners() {
+                // Control buttons
+                this.elements.controls.pause.addEventListener('click', () => this.togglePause());
+                this.elements.controls.skip.addEventListener('click', () => this.skipDialogue());
+                this.elements.controls.rewind.addEventListener('click', () => this.rewindDialogue());
+                this.elements.controls.speed.addEventListener('input', (e) => this.setPlaybackSpeed(e.target.value));
+                this.elements.controls.sound.addEventListener('click', () => this.toggleSound());
+                this.elements.controls.fullscreen.addEventListener('click', () => this.toggleFullscreen());
+
+                // Exit portal
+                this.elements.exitPortal.addEventListener('click', () => this.exitExperience());
+
+                // Splash screen
+                this.elements.splashScreen.addEventListener('click', () => this.startExperience());
+
+                // Keyboard shortcuts
+                document.addEventListener('keydown', (e) => this.handleKeyboard(e));
+
+                // User interaction tracking
+                ['click', 'keypress', 'mousemove', 'touchstart'].forEach(event => {
+                    document.addEventListener(event, () => {
+                        this.state.userInteracted = true;
+                        this.state.idleTime = 0;
+                    });
+                });
+            }
+
+            setupInteractiveElements() {
+                this.elements.viewport.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('clickable-word')) {
+                        this.handleWordInteraction(e.target);
+                    }
+                });
+            }
+
+            startExperience() {
+                if (this.state.started) return;
+                this.state.started = true;
+
+                // Hide splash screen with cinematic effect
+                gsap.timeline()
+                    .to(this.elements.splashScreen, {
+                        opacity: 0,
+                        scale: 1.1,
+                        duration: 1.5,
+                        ease: 'power2.inOut'
+                    })
+                    .set(this.elements.splashScreen, { display: 'none' })
+                    .to(this.elements.terminalContainer, {
+                        opacity: 1,
+                        scale: 1,
+                        duration: 2,
+                        ease: 'back.out(1.7)'
+                    }, '-=0.5');
+
+                // Start ambient audio
+                if (this.ambientAudio && this.state.soundEnabled) {
+                    this.ambientAudio.oscillator.start();
+                }
+
+                setTimeout(() => {
+                    this.beginDialogue();
+                }, 2000);
+            }
+
+            beginDialogue() {
+                this.state.isPlaying = true;
+                this.updateProgress();
+                this.processNextDialogue();
+            }
+
+            processNextDialogue() {
+                if (!this.state.isPlaying || this.state.isPaused) return;
+                
+                if (this.state.currentDialogueIndex >= this.dialogueScript.length) {
+                    this.endExperience();
+                    return;
+                }
+
+                const currentItem = this.dialogueScript[this.state.currentDialogueIndex];
+                this.executeDialogueItem(currentItem);
+            }
+
+            executeDialogueItem(item) {
+                switch (item.type) {
+                    case 'dialogue':
+                        this.renderDialogue(item);
+                        break;
+                    case 'system':
+                        this.renderSystemMessage(item);
+                        break;
+                    case 'handwritten':
+                        this.renderHandwritten(item);
+                        break;
+                    case 'cinematic':
+                        this.executeCinematicAction(item);
+                        break;
+                    default:
+                        console.warn('Unknown dialogue type:', item.type);
+                        this.advanceDialogue();
+                }
+            }
+
+            renderDialogue(item) {
+                const dialogueEl = this.createDialogueElement(item);
+                this.elements.viewport.appendChild(dialogueEl);
+
+                // Add character avatar
+                if (item.character) {
+                    this.showCharacterAvatar(item.character, dialogueEl);
+                }
+
+                // Execute effects
+                this.executeEffects(item.effects, dialogueEl);
+
+                // Enhanced typewriter with cinematic timing
+                this.enhancedTypewriter(item.text, dialogueEl.querySelector('.dialogue-text'), () => {
+                    this.handleInteractiveWords(dialogueEl, item.interactive);
+                    
+                    setTimeout(() => {
+                        this.advanceDialogue();
+                    }, (item.delay || 1000) / this.state.playbackSpeed);
+                });
+            }
+
+            createDialogueElement(item) {
+                const container = document.createElement('div');
+                container.className = `dialogue-line ${item.section || ''} ${item.character || ''}`;
+                
+                const textEl = document.createElement('div');
+                textEl.className = 'dialogue-text';
+                container.appendChild(textEl);
+
+                // Add character avatar placeholder
+                const avatar = document.createElement('div');
+                avatar.className = `character-avatar ${item.character || ''}`;
+                container.appendChild(avatar);
+
+                return container;
+            }
+
+            enhancedTypewriter(text, element, onComplete) {
+                this.state.isTyping = true;
+                let i = 0;
+                const cursor = document.createElement('span');
+                cursor.className = 'enhanced-cursor';
+                element.appendChild(cursor);
+
+                const type = () => {
+                    if (!this.state.isPlaying || this.state.isPaused) {
+                        setTimeout(type, 100);
+                        return;
+                    }
+
+                    if (i < text.length) {
+                        cursor.remove();
+                        const char = text.charAt(i);
+                        element.innerHTML += char === '\n' ? '<br>' : char;
+                        element.appendChild(cursor);
+
+                        // Play typing sound
+                        if (char !== ' ' && char !== '\n') {
+                            this.playTypingSound();
+                        }
+
+                        // Auto-scroll
+                        this.elements.viewport.scrollTop = this.elements.viewport.scrollHeight;
+
+                        // Dynamic typing speed
+                        let delay = 30 / this.state.playbackSpeed;
+                        if (char === '.' || char === '!' || char === '?') delay = 400 / this.state.playbackSpeed;
+                        else if (char === ',' || char === ';') delay = 200 / this.state.playbackSpeed;
+                        else if (char === ' ') delay = 15 / this.state.playbackSpeed;
+
+                        i++;
+                        setTimeout(type, delay);
+                    } else {
+                        cursor.remove();
+                        this.state.isTyping = false;
+                        if (onComplete) onComplete();
+                    }
+                };
+
+                // Animate in the dialogue line
+                gsap.fromTo(element.parentElement, 
+                    { opacity: 0, y: 20 },
+                    { opacity: 1, y: 0, duration: 0.5, onComplete: type }
+                );
+            }
+
+            executeEffects(effects, element) {
+                if (!effects) return;
+
+                effects.forEach(effect => {
+                    switch (effect) {
+                        case 'characterEntry':
+                            this.showCharacterAvatar('guide', element);
+                            break;
+                        case 'textGlow':
+                            element.style.textShadow = '0 0 20px currentColor';
+                            break;
+                        case 'backgroundFlash':
+                            this.cinematicFlash();
+                            break;
+                        case 'shake':
+                            element.classList.add('shake-effect');
+                            break;
+                        case 'zoomIn':
+                            element.classList.add('zoom-effect');
+                            break;
+                        case 'hologram':
+                            element.classList.add('hologram-effect');
+                            break;
+                    }
+                });
+            }
+
+            executeCinematicAction(item) {
+                switch (item.action) {
+                    case 'bootSequence':
+                        this.playBootSequence();
+                        break;
+                    case 'activateMatrix':
+                        this.activateMatrix();
+                        break;
+                    case 'intensifyMatrix':
+                        this.intensifyMatrix(item.intensity);
+                        break;
+                    case 'matrixGlitch':
+                        this.matrixGlitch(item.intensity);
+                        break;
+                    case 'fullGlitch':
+                        this.fullGlitchSequence();
+                        break;
+                    case 'fullSystemGlitch':
+                        this.fullSystemGlitch();
+                        break;
+                    case 'intensiveGlitch':
+                        this.intensiveGlitch(item.intensity);
+                        break;
+                    case 'gradualMatrixFade':
+                        this.gradualMatrixFade();
+                        break;
+                    case 'terminalFlicker':
+                        this.terminalFlicker();
+                        break;
+                    case 'finalSequence':
+                        this.finalSequence();
+                        break;
+                    case 'moodShift':
+                        this.moodShift(item.mood);
+                        break;
+                }
+
+                setTimeout(() => {
+                    this.advanceDialogue();
+                }, item.duration || 1000);
+            }
+
+            // Enhanced Matrix and Glitch Effects
+            activateMatrix() {
+                this.state.matrixMode = true;
+                this.elements.matrixContainer.classList.add('active');
+                
+                if (this.matrixRain) {
+                    this.matrixRain.activate();
+                } else if (this.cssMatrixRain) {
+                    this.cssMatrixRain.activate();
+                }
+            }
+
+            intensifyMatrix(intensity = 'medium') {
+                if (!this.state.matrixMode) this.activateMatrix();
+                
+                const intensityMap = {
+                    mild: 0.1,
+                    medium: 0.3,
+                    high: 0.5,
+                    extreme: 0.8
+                };
+                
+                if (this.matrixRain) {
+                    this.matrixRain.setGlitchIntensity(intensityMap[intensity] || 0.3);
+                }
+            }
+
+            matrixGlitch(intensity = 'medium') {
+                if (!this.state.matrixMode) this.activateMatrix();
+                
+                const intensityMap = {
+                    mild: { intensity: 0.2, duration: 500 },
+                    medium: { intensity: 0.4, duration: 1000 },
+                    high: { intensity: 0.6, duration: 1500 },
+                    extreme: { intensity: 0.9, duration: 2500 }
+                };
+                
+                const config = intensityMap[intensity] || intensityMap.medium;
+                
+                if (this.matrixRain) {
+                    this.matrixRain.triggerGlitch(config.duration, config.intensity);
+                } else if (this.cssMatrixRain) {
+                    this.cssMatrixRain.triggerGlitch(config.duration, config.intensity);
+                }
+                
+                // Activate glitch overlay
+                this.elements.glitchOverlay.classList.add('active');
+                setTimeout(() => {
+                    this.elements.glitchOverlay.classList.remove('active');
+                }, config.duration);
+            }
+
+            fullSystemGlitch() {
+                this.state.glitchMode = true;
+                this.elements.terminal.classList.add('glitch-mode');
+                this.elements.glitchOverlay.classList.add('active');
+                
+                if (this.state.matrixMode) {
+                    if (this.matrixRain) {
+                        this.matrixRain.triggerGlitch(4000, 0.9);
+                    } else if (this.cssMatrixRain) {
+                        this.cssMatrixRain.triggerGlitch(4000, 0.9);
+                    }
+                }
+
+                // Multiple layered effects
+                this.fullGlitchSequence();
+                this.terminalFlicker();
+
+                // Add text glitch to all dialogue
+                document.querySelectorAll('.dialogue-line').forEach(line => {
+                    line.classList.add('glitch-text');
+                });
+
+                setTimeout(() => {
+                    this.state.glitchMode = false;
+                    this.elements.terminal.classList.remove('glitch-mode');
+                    this.elements.glitchOverlay.classList.remove('active');
+                    
+                    document.querySelectorAll('.dialogue-line').forEach(line => {
+                        line.classList.remove('glitch-text');
+                    });
+                }, 4000);
+            }
+
+            intensiveGlitch(intensity = 'extreme') {
+                const duration = 2000;
+                
+                // Terminal glitch
+                this.elements.terminal.classList.add('glitch-mode');
+                
+                // Matrix glitch
+                if (this.state.matrixMode) {
+                    if (this.matrixRain) {
+                        this.matrixRain.triggerGlitch(duration, 0.8);
+                    } else if (this.cssMatrixRain) {
+                        this.cssMatrixRain.triggerGlitch(duration, 0.8);
+                    }
+                }
+                
+                // Overlay effects
+                this.elements.glitchOverlay.classList.add('active');
+                
+                // Screen distortion
+                gsap.timeline()
+                    .to(this.elements.terminal, {
+                        skewX: 5,
+                        duration: 0.1,
+                        repeat: 20,
+                        yoyo: true
+                    })
+                    .to(this.elements.terminal, {
+                        skewX: 0,
+                        duration: 0.1
+                    });
+
+                setTimeout(() => {
+                    this.elements.terminal.classList.remove('glitch-mode');
+                    this.elements.glitchOverlay.classList.remove('active');
+                }, duration);
+            }
+
+            gradualMatrixFade() {
+                if (!this.state.matrixMode) return;
+
+                gsap.to(this.elements.matrixContainer, {
+                    opacity: 0,
+                    duration: 3,
+                    onComplete: () => {
+                        if (this.matrixRain) {
+                            this.matrixRain.deactivate();
+                        } else if (this.cssMatrixRain) {
+                            this.cssMatrixRain.deactivate();
+                        }
+                        this.state.matrixMode = false;
+                    }
+                });
+            }
+
+            fullGlitchSequence() {
+                // Multi-layered glitch effect
+                gsap.timeline()
+                    .to(this.elements.flash, { opacity: 1, duration: 0.05 })
+                    .to(this.elements.flash, { opacity: 0, duration: 0.1 })
+                    .to(this.elements.terminal, { 
+                        x: -5, 
+                        duration: 0.05,
+                        repeat: 10,
+                        yoyo: true 
+                    }, 0)
+                    .to('.dialogue-text', { 
+                        textShadow: '2px 0 var(--glitch-red), -2px 0 var(--electric-blue)',
+                        duration: 0.1,
+                        repeat: 5,
+                        yoyo: true 
+                    }, 0);
+            }
+
+            moodShift(mood) {
+                // Visual mood indicators
+                switch (mood) {
+                    case 'gravity':
+                        this.elements.terminal.style.borderColor = 'var(--void-purple)';
+                        if (this.state.matrixMode && this.matrixRain) {
+                            this.matrixRain.setGlitchIntensity(0.2);
+                        }
+                        break;
+                    case 'gentler':
+                        this.elements.terminal.style.borderColor = 'var(--terminal-green)';
+                        if (this.state.matrixMode && this.matrixRain) {
+                            this.matrixRain.setGlitchIntensity(0.05);
+                        }
+                        break;
+                }
+            }
+
+            playBootSequence() {
+                const bootText = [
+                    "> initializing_narrative_subroutine...",
+                    "> intrusion_detected",
+                    "> host integrity: fractured", 
+                    "> reader consciousness: online",
+                    "> unexpected access granted",
+                    "> status: unavoidable"
+                ];
+
+                let index = 0;
+                const addLine = () => {
+                    if (index < bootText.length) {
+                        const line = document.createElement('div');
+                        line.className = 'system-text';
+                        line.textContent = bootText[index];
+                        this.elements.viewport.appendChild(line);
+                        
+                        gsap.fromTo(line, 
+                            { opacity: 0 },
+                            { opacity: 1, duration: 0.3 }
+                        );
+
+                        this.elements.viewport.scrollTop = this.elements.viewport.scrollHeight;
+                        index++;
+                        setTimeout(addLine, 300);
+                    }
+                };
+                addLine();
+            }
+
+            renderSystemMessage(item) {
+                const systemEl = document.createElement('div');
+                systemEl.className = 'system-text';
+                systemEl.innerHTML = item.text.replace(/\n/g, '<br>');
+                
+                // Add error styling for system crashes
+                if (item.effects?.includes('systemCrash')) {
+                    systemEl.classList.add('error');
+                }
+                
+                this.elements.viewport.appendChild(systemEl);
+
+                gsap.fromTo(systemEl, 
+                    { opacity: 0, scale: 0.8 },
+                    { 
+                        opacity: 1, 
+                        scale: 1, 
+                        duration: 0.5,
+                        onComplete: () => {
+                            if (item.effects?.includes('portalOpen')) {
+                                this.showExitPortal();
+                            }
+                            
+                            setTimeout(() => {
+                                this.advanceDialogue();
+                            }, item.delay || 1000);
+                        }
+                    }
+                );
+
+                this.elements.viewport.scrollTop = this.elements.viewport.scrollHeight;
+            }
+
+            renderHandwritten(item) {
+                const handwrittenEl = document.createElement('div');
+                handwrittenEl.className = 'handwritten-text';
+                this.elements.viewport.appendChild(handwrittenEl);
+
+                gsap.fromTo(handwrittenEl, 
+                    { opacity: 0, y: 20 },
+                    { 
+                        opacity: 1, 
+                        y: 0, 
+                        duration: 1,
+                        onComplete: () => {
+                            this.enhancedTypewriter(item.text, handwrittenEl, () => {
+                                setTimeout(() => {
+                                    this.advanceDialogue();
+                                }, item.delay || 1000);
+                            });
+                        }
+                    }
+                );
+            }
+
+            showCharacterAvatar(character, dialogueElement) {
+                const avatar = dialogueElement.querySelector('.character-avatar');
+                if (avatar) {
+                    avatar.classList.add('active');
+                    if (character === 'guide') {
+                        avatar.classList.add('guide');
+                    }
+                }
+            }
+
+            handleInteractiveWords(element, interactive) {
+                if (!interactive) return;
+
+                const textEl = element.querySelector('.dialogue-text');
+                const words = interactive.words;
+                
+                words.forEach(word => {
+                    const regex = new RegExp(`\\b${word}\\b`, 'gi');
+                    textEl.innerHTML = textEl.innerHTML.replace(regex, 
+                        `<span class="clickable-word" data-action="${interactive.action}">${word}</span>`
+                    );
+                });
+            }
+
+            handleWordInteraction(wordElement) {
+                const action = wordElement.dataset.action;
+                const word = wordElement.textContent;
+
+                switch (action) {
+                    case 'pet_interaction':
+                        this.petInteraction();
+                        break;
+                    case 'easter_egg':
+                        this.triggerEasterEgg(word);
+                        break;
+                    case 'recognition':
+                        this.recognitionResponse(word);
+                        break;
+                }
+            }
+
+            petInteraction() {
+                this.createFloatingText("*purrs digitally*", 'var(--terminal-green)');
+                if (this.state.matrixMode) {
+                    if (this.matrixRain) {
+                        this.matrixRain.triggerGlitch(500, 0.2);
+                    } else if (this.cssMatrixRain) {
+                        this.cssMatrixRain.triggerGlitch(500, 0.2);
+                    }
+                }
+            }
+
+            triggerEasterEgg(word) {
+                if (word.includes('Mulaney')) {
+                    this.createFloatingText("*nervous laughter intensifies*", 'var(--cosmic-pink)');
+                } else if (word.includes('therapy')) {
+                    this.createFloatingText("*existential dread loading...*", 'var(--electric-blue)');
+                }
+            }
+
+            recognitionResponse(word) {
+                const responses = {
+                    'CVS parking lots': "*nods knowingly*",
+                    '3AM kitchen floors': "*virtual hug initiated*",
+                    '"I\'m fine"': "*translation: help*"
+                };
+                
+                this.createFloatingText(responses[word] || "*understanding intensifies*", 'var(--void-purple)');
+            }
+
+            createFloatingText(text, color) {
+                const floatingEl = document.createElement('div');
+                floatingEl.style.position = 'absolute';
+                floatingEl.style.color = color;
+                floatingEl.style.fontSize = '0.8rem';
+                floatingEl.style.left = Math.random() * 80 + 10 + '%';
+                floatingEl.style.top = Math.random() * 50 + 25 + '%';
+                floatingEl.style.zIndex = '5';
+                floatingEl.style.pointerEvents = 'none';
+                floatingEl.textContent = text;
+                
+                this.elements.terminal.appendChild(floatingEl);
+                
+                gsap.fromTo(floatingEl, 
+                    { opacity: 0, y: 0 },
+                    { 
+                        opacity: 1, 
+                        y: -50, 
+                        duration: 2,
+                        onComplete: () => floatingEl.remove()
+                    }
+                );
+            }
+
+            // Control methods
+            togglePause() {
+                this.state.isPaused = !this.state.isPaused;
+                this.elements.controls.pause.textContent = this.state.isPaused ? '▶ PLAY' : '⏸ PAUSE';
+                
+                if (!this.state.isPaused && this.state.isPlaying) {
+                    this.processNextDialogue();
+                }
+            }
+
+            skipDialogue() {
+                if (this.state.isTyping) {
+                    this.completeCurrentTyping();
+                } else {
+                    this.advanceDialogue();
+                }
+            }
+
+            rewindDialogue() {
+                if (this.state.currentDialogueIndex > 0) {
+                    this.state.currentDialogueIndex -= 2; // Go back one (will be incremented in advance)
+                    this.advanceDialogue();
+                }
+            }
+
+            setPlaybackSpeed(speed) {
+                this.state.playbackSpeed = parseFloat(speed);
+                this.elements.controls.speedDisplay.textContent = speed + 'x';
+            }
+
+            toggleSound() {
+                this.state.soundEnabled = !this.state.soundEnabled;
+                this.elements.controls.sound.textContent = this.state.soundEnabled ? '🔊 AUDIO' : '🔇 MUTED';
+                
+                if (this.ambientAudio) {
+                    this.ambientAudio.gainNode.gain.setValueAtTime(
+                        this.state.soundEnabled ? 0.05 : 0,
+                        this.audioContext.currentTime
+                    );
+                }
+            }
+
+            toggleFullscreen() {
+                if (!document.fullscreenElement) {
+                    document.documentElement.requestFullscreen();
+                } else {
+                    document.exitFullscreen();
+                }
+            }
+
+            cinematicFlash() {
+                gsap.timeline()
+                    .to(this.elements.flash, { opacity: 0.8, duration: 0.1 })
+                    .to(this.elements.flash, { opacity: 0, duration: 0.3 });
+            }
+
+            terminalFlicker() {
+                gsap.to(this.elements.terminal, {
+                    boxShadow: '0 0 100px rgba(57, 255, 20, 0.6)',
+                    duration: 0.2,
+                    repeat: 5,
+                    yoyo: true,
+                    onComplete: () => {
+                        gsap.to(this.elements.terminal, {
+                            boxShadow: '0 0 50px rgba(57, 255, 20, 0.3)',
+                            duration: 0.5
+                        });
+                    }
+                });
+            }
+
+            updateProgress() {
+                const progress = (this.state.currentDialogueIndex / this.dialogueScript.length) * 100;
+                gsap.to(this.elements.progressBar, {
+                    width: progress + '%',
+                    duration: 0.5
+                });
+            }
+
+            advanceDialogue() {
+                this.state.currentDialogueIndex++;
+                this.updateProgress();
+                
+                setTimeout(() => {
+                    this.processNextDialogue();
+                }, 100);
+            }
+
+            endExperience() {
+                this.showExitPortal();
+            }
+
+            showExitPortal() {
+                gsap.to(this.elements.exitPortal, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 1,
+                    ease: 'back.out(1.7)',
+                    delay: 1
+                });
+            }
+
+            exitExperience() {
+                gsap.to('.terminal-container', {
+                    opacity: 0,
+                    scale: 0.8,
+                    duration: 1.5,
+                    ease: 'power2.inOut',
+                    onComplete: () => {
+                        alert('Returning to the book...\n\nThe Guide is now with you in the margins.');
+                    }
+                });
+
+                if (this.state.matrixMode) {
+                    this.gradualMatrixFade();
+                }
+            }
+
+            finalSequence() {
+                gsap.timeline()
+                    .to(this.elements.terminal, {
+                        boxShadow: '0 0 100px rgba(57, 255, 20, 0.8)',
+                        duration: 2
+                    })
+                    .to('.dialogue-text', {
+                        textShadow: '0 0 20px currentColor',
+                        duration: 1
+                    }, '-=1');
+            }
+
+            handleKeyboard(e) {
+                if (!this.state.started) return;
+                
+                switch (e.key) {
+                    case ' ':
+                        e.preventDefault();
+                        this.togglePause();
+                        break;
+                    case 'ArrowRight':
+                        this.skipDialogue();
+                        break;
+                    case 'ArrowLeft':
+                        this.rewindDialogue();
+                        break;
+                    case 'm':
+                        this.toggleSound();
+                        break;
+                    case 'f':
+                        this.toggleFullscreen();
+                        break;
+                    case 'g':
+                        // Debug: trigger matrix glitch
+                        if (this.state.matrixMode) {
+                            if (this.matrixRain) {
+                                this.matrixRain.triggerGlitch(1000, 0.5);
+                            } else if (this.cssMatrixRain) {
+                                this.cssMatrixRain.triggerGlitch(1000, 0.5);
+                            }
+                        }
+                        break;
+                }
+            }
+        }
+
+        // Initialize the experience when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            const experience = new CinematicGuideExperience();
+        });
+    </script>
+</body>
+</html>
+
+
